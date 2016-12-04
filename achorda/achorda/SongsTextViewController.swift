@@ -1,0 +1,207 @@
+//
+//  SongsTextViewController.swift
+//  achorda
+//
+//  Created by Student on 1/16/16.
+//  Copyright © 2016 Ayana. All rights reserved.
+//
+
+import UIKit
+import Parse
+import Bolts
+import Firebase
+
+
+class SongsTextViewController: UIViewController {
+    
+    
+    @IBOutlet weak var songTextView: UITextView!
+    @IBOutlet var songsNameLabel: UILabel!
+    var toneChord:[AnyObject] = []
+    var neededSongs:[AnyObject]=[]
+    var chosenSong:AnyObject?
+    var text: String = ""
+    var songID:[String]=[]
+    var chosenSongId:String!
+    var chosenToneChord:[AnyObject]=[]
+    var chosenSongsInitialChords:[String]=[]
+    var chosenSongNumberOfTransitions:Int!
+    var newNeededChords:[Int] = []
+    var newNeededChordsNames:[String]=[]
+    var InitialVsNewDict = [String: String]()
+    //var chordsLabel:UILabel!
+    var neededChordsString:String!
+    
+    
+    
+    func showText(){
+        print(chosenSong)
+        print("NUMBER OF TRANSITIONS",self.chosenSongNumberOfTransitions)
+        songsNameLabel.text = ((chosenSong!["artist"] as! String ) + " - " + (chosenSong!["songName"] as! String))
+        //print(neededSongs)
+        
+        let songTextRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/songText/"	+ self.chosenSongId)
+        songTextRoot.observeEventType(.Value, withBlock: { snapshot in
+            
+            let chosenSongText = snapshot.value as! NSDictionary
+            self.text = chosenSongText["text"] as! String
+            self.songTextView.text=self.text
+            self.findSubstr()
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
+        
+    }
+
+    func findSubstr(){
+  
+        print(chosenSongsInitialChords)
+        for i in 0..<chosenSongsInitialChords.count {
+            
+            let textString = self.text as NSString
+            var range = textString.rangeOfString(chosenSongsInitialChords[i], options: NSStringCompareOptions.CaseInsensitiveSearch, range: NSMakeRange(0, textString.length))
+            print(range.length)
+            
+            while (range.length>0){
+                songTextView.layoutManager.ensureLayoutForTextContainer(songTextView.textContainer)
+                let start = songTextView.positionFromPosition(songTextView.beginningOfDocument, offset: range.location)!
+                let end = songTextView.positionFromPosition(start, offset: range.length)!
+                
+                let tRange = songTextView.textRangeFromPosition(start, toPosition: end)
+                
+                let rect = songTextView.firstRectForRange(tRange!)
+                let view:UILabel = UILabel(frame: rect)
+                view.backgroundColor = UIColor.whiteColor()
+                
+                for dict in InitialVsNewDict{
+                    if(chosenSongsInitialChords[i]==dict.0){
+                        print( dict.1)
+                        
+                        neededChordsString = dict.1
+                    }
+                }
+                view.text = neededChordsString
+                //chordsLabel.text =  neededChordsString
+                //view.addSubview(chordsLabel)
+                songTextView.addSubview(view)
+                let newStart = range.location+range.length;
+                range = textString.rangeOfString(chosenSongsInitialChords[i], options: NSStringCompareOptions.CaseInsensitiveSearch, range: NSMakeRange(range.location+range.length, textString.length-newStart))
+            }
+        }
+        
+        
+    }
+    
+    func takeChordsAndNumbers(){
+        for j in 0..<(self.chosenSong!["chords"] as! NSArray).count{
+            for i in 0..<self.toneChord.count{
+                if ((self.chosenSong!["chords"]!![j] as! Int)==(toneChord[i]["numberOfChord"] as! Int)){
+                    chosenSongsInitialChords.append("///" + (toneChord[i]["toneChord"] as! String) + "///")
+                }
+            }
+        }
+        print(chosenSongsInitialChords)
+       
+        for i in 0..<(self.chosenSong!["chords"] as! NSArray).count{
+            
+            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords.append((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            }
+            else{
+                newNeededChords.append((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+            }
+             
+        }
+        print("newNeededChords", newNeededChords)
+        
+        for i in 0..<self.newNeededChords.count{
+            for j in 0..<self.toneChord.count{
+                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                }
+            }
+            
+        }
+        /*for i in 0..<min(self.chosenSongsInitialChords.count, self.newNeededChordsNames.count) {
+            self.InitialVsNewDict[chosenSongsInitialChords[i]] = newNeededChordsNames[i]
+        }*/
+        for (key, value) in zip(self.chosenSongsInitialChords, self.newNeededChordsNames) {
+            self.InitialVsNewDict[key] = value
+        }
+        print(InitialVsNewDict)
+        
+        //print(newNeededChordsNames)
+        findSubstr()
+    }
+        
+    
+    @IBAction func tonalityUpButton(sender: AnyObject) {
+        self.chosenSongNumberOfTransitions = chosenSongNumberOfTransitions - 1
+        print(chosenSongNumberOfTransitions)
+        for i in 0..<self.newNeededChords.count{
+            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            }
+            else{
+                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+            }
+        }
+        self.newNeededChordsNames=[]
+        for i in 0..<self.newNeededChords.count{
+            for j in 0..<self.toneChord.count{
+                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                }
+            }
+        }
+        print(newNeededChords)
+        self.InitialVsNewDict = [String: String]()
+        for (key, value) in zip(self.chosenSongsInitialChords, self.newNeededChordsNames) {
+            self.InitialVsNewDict[key] = value
+        }
+        print(InitialVsNewDict)
+        findSubstr()
+        
+    }
+    
+    @IBAction func tonalityDownButton(sender: AnyObject) {
+        self.chosenSongNumberOfTransitions = chosenSongNumberOfTransitions + 1
+        print(chosenSongNumberOfTransitions)
+        for i in 0..<self.newNeededChords.count{
+            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            }
+            else{
+                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+            }
+        }
+        self.newNeededChordsNames=[]
+        for i in 0..<self.newNeededChords.count{
+            for j in 0..<self.toneChord.count{
+                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                }
+            }
+        }
+        print(newNeededChords)
+        self.InitialVsNewDict = [String: String]()
+        for (key, value) in zip(self.chosenSongsInitialChords, self.newNeededChordsNames) {
+            self.InitialVsNewDict[key] = value
+        }
+        print(InitialVsNewDict)
+        findSubstr()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        showText()
+        takeChordsAndNumbers()
+        //self.songTextView.text=self.text
+        //findSubstr()
+        
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}

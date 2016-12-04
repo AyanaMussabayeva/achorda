@@ -1,0 +1,32 @@
+PODS:
+  - Alamofire (3.1.4)
+  - Bolts/Tasks (1.5.1)
+  - Firebase (2.5.0)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
+  - Spring (1.0.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - Firebase (>= 2.5.0)
+  - Parse
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift2
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 18d5c7b74489de8044e34767f856d1e574f0820e
+    :git: https://github.com/MengTo/Spring.git
+
+SPEC CHECKSUMS:
+  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Bolts: a12663244b1d3351c738882e71902fc74db54f64
+  Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
+
+COCOAPODS: 0.39.0
