@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3A2F845E68F88E3B2DD62B37DFAFD011A27D61E9" : 0,
+    "DC9BE4C833928FF5911E1891208646CE1041AF26" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D9E19D1D-66CB-4612-93A3-3B63CE85F6F8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3A2F845E68F88E3B2DD62B37DFAFD011A27D61E9" : "",
+    "DC9BE4C833928FF5911E1891208646CE1041AF26" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "achorda",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "achorda.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AyanaMussabayeva\/achorda.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3A2F845E68F88E3B2DD62B37DFAFD011A27D61E9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/AyanaMussabayeva\/achorda.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DC9BE4C833928FF5911E1891208646CE1041AF26"
+    }
+  ]
+}

@@ -31,23 +31,25 @@ class SongsTextViewController: UIViewController {
     var InitialVsNewDict = [String: String]()
     //var chordsLabel:UILabel!
     var neededChordsString:String!
+    var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
+    var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
+    var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
     
-    
-    
+    //((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120)
     func showText(){
-        print(chosenSong)
+        //print(chosenSong)
         print("NUMBER OF TRANSITIONS",self.chosenSongNumberOfTransitions)
-        songsNameLabel.text = ((chosenSong!["artist"] as! String ) + " - " + (chosenSong!["songName"] as! String))
+        songsNameLabel.text = (((chosenSong as! NSDictionary)["artist"] as! String) + " - " + ((chosenSong as! NSDictionary)["songName"] as! String))
         //print(neededSongs)
         
         let songTextRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/songText/"	+ self.chosenSongId)
-        songTextRoot.observeEventType(.Value, withBlock: { snapshot in
+        songTextRoot.observe(.value, with: { snapshot in
             
             let chosenSongText = snapshot.value as! NSDictionary
             self.text = chosenSongText["text"] as! String
             self.songTextView.text=self.text
             self.findSubstr()
-            }, withCancelBlock: { error in
+            }, withCancel: { error in
                 print(error.description)
         })
         
@@ -59,19 +61,20 @@ class SongsTextViewController: UIViewController {
         for i in 0..<chosenSongsInitialChords.count {
             
             let textString = self.text as NSString
-            var range = textString.rangeOfString(chosenSongsInitialChords[i], options: NSStringCompareOptions.CaseInsensitiveSearch, range: NSMakeRange(0, textString.length))
+            var range = textString.range(of: chosenSongsInitialChords[i], options: NSString.CompareOptions.caseInsensitive, range: NSMakeRange(0, textString.length))
             print(range.length)
             
             while (range.length>0){
-                songTextView.layoutManager.ensureLayoutForTextContainer(songTextView.textContainer)
-                let start = songTextView.positionFromPosition(songTextView.beginningOfDocument, offset: range.location)!
-                let end = songTextView.positionFromPosition(start, offset: range.length)!
+                songTextView.layoutManager.ensureLayout(for: songTextView.textContainer)
+                let start = songTextView.position(from: songTextView.beginningOfDocument, offset: range.location)!
+                let end = songTextView.position(from: start, offset: range.length)!
                 
-                let tRange = songTextView.textRangeFromPosition(start, toPosition: end)
+                let tRange = songTextView.textRange(from: start, to: end)
                 
-                let rect = songTextView.firstRectForRange(tRange!)
+                let rect = songTextView.firstRect(for: tRange!)
                 let view:UILabel = UILabel(frame: rect)
-                view.backgroundColor = UIColor.whiteColor()
+                view.backgroundColor = brownColor
+                view.textColor = greenColor
                 
                 for dict in InitialVsNewDict{
                     if(chosenSongsInitialChords[i]==dict.0){
@@ -85,7 +88,7 @@ class SongsTextViewController: UIViewController {
                 //view.addSubview(chordsLabel)
                 songTextView.addSubview(view)
                 let newStart = range.location+range.length;
-                range = textString.rangeOfString(chosenSongsInitialChords[i], options: NSStringCompareOptions.CaseInsensitiveSearch, range: NSMakeRange(range.location+range.length, textString.length-newStart))
+                range = textString.range(of: chosenSongsInitialChords[i], options: NSString.CompareOptions.caseInsensitive, range: NSMakeRange(range.location+range.length, textString.length-newStart))
             }
         }
         
@@ -93,22 +96,22 @@ class SongsTextViewController: UIViewController {
     }
     
     func takeChordsAndNumbers(){
-        for j in 0..<(self.chosenSong!["chords"] as! NSArray).count{
+        for j in 0..<((self.chosenSong! as! NSDictionary)["chords"] as! NSArray).count{
             for i in 0..<self.toneChord.count{
-                if ((self.chosenSong!["chords"]!![j] as! Int)==(toneChord[i]["numberOfChord"] as! Int)){
-                    chosenSongsInitialChords.append("///" + (toneChord[i]["toneChord"] as! String) + "///")
+                if ((((self.chosenSong! as! NSDictionary)["chords"]! as! NSArray)[j] as! Int)==((toneChord[i] as! NSDictionary)["numberOfChord"] as! Int)){
+                    chosenSongsInitialChords.append("///" + ((toneChord[i] as! NSDictionary)["toneChord"] as! String) + "///")
                 }
             }
         }
         print(chosenSongsInitialChords)
        
-        for i in 0..<(self.chosenSong!["chords"] as! NSArray).count{
+        for i in 0..<((self.chosenSong! as! NSDictionary)["chords"] as! NSArray).count{
             
-            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
-                newNeededChords.append((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            if ((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords.append((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
             }
             else{
-                newNeededChords.append((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+                newNeededChords.append((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
             }
              
         }
@@ -116,15 +119,12 @@ class SongsTextViewController: UIViewController {
         
         for i in 0..<self.newNeededChords.count{
             for j in 0..<self.toneChord.count{
-                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
-                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                if(self.newNeededChords[i]==((self.toneChord[j] as! NSDictionary)["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append((toneChord[j] as! NSDictionary)["toneChord"] as! String)
                 }
             }
             
         }
-        /*for i in 0..<min(self.chosenSongsInitialChords.count, self.newNeededChordsNames.count) {
-            self.InitialVsNewDict[chosenSongsInitialChords[i]] = newNeededChordsNames[i]
-        }*/
         for (key, value) in zip(self.chosenSongsInitialChords, self.newNeededChordsNames) {
             self.InitialVsNewDict[key] = value
         }
@@ -135,22 +135,22 @@ class SongsTextViewController: UIViewController {
     }
         
     
-    @IBAction func tonalityUpButton(sender: AnyObject) {
+    @IBAction func tonalityUpButton(_ sender: AnyObject) {
         self.chosenSongNumberOfTransitions = chosenSongNumberOfTransitions - 1
         print(chosenSongNumberOfTransitions)
         for i in 0..<self.newNeededChords.count{
-            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
-                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            if ((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords[i]=((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
             }
             else{
-                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+                newNeededChords[i]=((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
             }
         }
         self.newNeededChordsNames=[]
         for i in 0..<self.newNeededChords.count{
             for j in 0..<self.toneChord.count{
-                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
-                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                if(self.newNeededChords[i]==((self.toneChord[j] as! NSDictionary)["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append((toneChord[j] as! NSDictionary)["toneChord"] as! String)
                 }
             }
         }
@@ -164,22 +164,22 @@ class SongsTextViewController: UIViewController {
         
     }
     
-    @IBAction func tonalityDownButton(sender: AnyObject) {
+    @IBAction func tonalityDownButton(_ sender: AnyObject) {
         self.chosenSongNumberOfTransitions = chosenSongNumberOfTransitions + 1
         print(chosenSongNumberOfTransitions)
         for i in 0..<self.newNeededChords.count{
-            if ((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
-                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
+            if ((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) as Int>120){
+                newNeededChords[i]=((((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions) - 120)
             }
             else{
-                newNeededChords[i]=((((self.chosenSong!["chords"]!![i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions))
+                newNeededChords[i]=(((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120) - 10*self.chosenSongNumberOfTransitions)
             }
         }
         self.newNeededChordsNames=[]
         for i in 0..<self.newNeededChords.count{
             for j in 0..<self.toneChord.count{
-                if(self.newNeededChords[i]==(self.toneChord[j]["numberOfChord"] as! Int)){
-                    self.newNeededChordsNames.append(toneChord[j]["toneChord"] as! String)
+                if(self.newNeededChords[i]  == ((self.toneChord[j] as! NSDictionary)["numberOfChord"] as! Int)){
+                    self.newNeededChordsNames.append((toneChord[j] as! NSDictionary)["toneChord"] as! String)
                 }
             }
         }

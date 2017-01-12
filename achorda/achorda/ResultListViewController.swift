@@ -32,31 +32,37 @@ class ResultListViewController: UIViewController, UITableViewDelegate, UITableVi
     var neededSongsNumberOfTransitions:[Int]=[]
     var chosenSongNumberOfTransitions:Int!
     
+    var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
+    var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
+    var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
     
     
     
     //отображение в таблице
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
-        cell.textLabel!.text = self.neededSongs[indexPath.row]["songName"] as? String
-        cell.detailTextLabel?.text = self.neededSongs[indexPath.row]["artist"] as? String
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell")
+        cell.textLabel!.text = (self.neededSongs[indexPath.row] as! NSDictionary)["songName"] as? String
+        cell.detailTextLabel?.text = (self.neededSongs[indexPath.row] as! NSDictionary)["artist"] as? String
         cell.textLabel?.numberOfLines = 0
+        cell.backgroundColor = brownColor
+        cell.textLabel?.textColor = UIColor.white
+        //cell.detailTextLabel?.textColor = greenColor
         
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(self.neededSongs.count)
         return self.neededSongs.count
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(self.neededSongs[indexPath.row] )
         self.chosenSong=self.neededSongs[indexPath.row]
         self.chosenSongId=self.neededSongsIDs[indexPath.row]
         self.chosenSongNumberOfTransitions = self.neededSongsNumberOfTransitions[indexPath.row]
-        performSegueWithIdentifier("showSongsText", sender: indexPath)
+        performSegue(withIdentifier: "showSongsText", sender: indexPath)
     }
     
     override func viewDidLoad() {
@@ -64,8 +70,8 @@ class ResultListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let vc = segue.destinationViewController as! SongsTextViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! SongsTextViewController
         vc.chosenSong = self.chosenSong
         vc.neededSongs = self.neededSongs
         vc.toneChord = self.toneChord

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xat-Ta-Grr">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xat-Ta-Grr">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -37,7 +37,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lej-N5-kZK">
                                 <rect key="frame" x="0.0" y="276" width="600" height="30"/>
-                                <color key="backgroundColor" red="0.56862745098039214" green="0.51764705882352946" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <rect key="contentStretch" x="0.050000000000000003" y="0.0" width="1" height="1"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="show more ">
@@ -51,11 +51,12 @@
                             <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aFL-eH-5Gb">
                                 <rect key="frame" x="0.0" y="306" width="300" height="195"/>
                                 <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="195" id="zOK-WS-CCj"/>
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="atY-dl-ch9"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="70B-My-P0O"/>
@@ -64,11 +65,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dd3-fb-mft">
                                 <rect key="frame" x="0.0" y="64" width="600" height="212"/>
                                 <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="separatorColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="ZHW-aG-CvI"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="PuD-QZ-klP"/>
@@ -77,6 +78,7 @@
                             <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="viI-gq-hly">
                                 <rect key="frame" x="300" y="306" width="300" height="195"/>
                                 <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -86,9 +88,12 @@
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxF-Mg-ZVv">
                                 <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxn-js-aXC">
-                                <rect key="frame" x="0.0" y="501" width="600" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxn-js-aXC">
+                                <rect key="frame" x="0.0" y="501" width="600" height="41"/>
+                                <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="dhj-Kc-I7K"/>
                                 </constraints>
@@ -192,27 +197,30 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="66" id="mDf-sM-qlg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.45490196078431372" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.51818990707397461" green="0.83733534812927246" blue="0.77689254283905029" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ct0-VS-A8r">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ct0-VS-A8r">
                                 <rect key="frame" x="500" y="64" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="vE4-wt-Wvg"/>
                                 </constraints>
-                                <state key="normal" title="up"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <state key="normal" title=" ↑">
+                                    <color key="titleColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="tonalityUpButton:" destination="N4S-jE-6ll" eventType="touchUpInside" id="WYy-ag-vKP"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHq-5I-d4C">
                                 <rect key="frame" x="20" y="176" width="580" height="424"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.58039215690000001" green="0.52549019610000003" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <attributes>
-                                            <color key="NSColor" red="0.50980392156862742" green="0.45882352941176469" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                         </attributes>
                                     </fragment>
@@ -224,7 +232,9 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="vB9-il-AAZ"/>
                                 </constraints>
-                                <state key="normal" title="down"/>
+                                <state key="normal" title=" ↓">
+                                    <color key="titleColor" red="0.45882352939999999" green="0.81568627449999997" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="tonalityDownButton:" destination="N4S-jE-6ll" eventType="touchUpInside" id="kmd-I2-Qva"/>
                                 </connections>

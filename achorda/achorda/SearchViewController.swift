@@ -1,4 +1,3 @@
-  
 
 //
 //  SearchViewController.swift
@@ -47,59 +46,71 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var chosenSongNumberOfTransitions:Int!
     var labelChords:[AnyObject] = []
     
+    var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
+    var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
+    var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
+    
     // собираем все тоуны и чорды
     func callServer(){
         
         let myRootRef = Firebase(url:"https://achorda-ayana.firebaseio.com/tone")
-        myRootRef.queryOrderedByChild("name").observeSingleEventOfType(.Value, withBlock: {
+        myRootRef?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
             snapshot in
-            self.tones = snapshot.value as! [Dictionary<String, String>]
-            self.tones.sortInPlace({ $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == NSComparisonResult.OrderedAscending})
+            self.tones = snapshot?.value as! [Dictionary<String, String>]
+            self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
             self.toneTableView.reloadData()
         })
         
         let myRootRef2 = Firebase(url:"https://achorda-ayana.firebaseio.com/chord")
-        myRootRef2.queryOrderedByChild("name").observeSingleEventOfType(.Value, withBlock: {
+        myRootRef2?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
             snapshot in
-            self.chords = snapshot.value as! [Dictionary<String, String>]
-            self.chords.sortInPlace({ $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == NSComparisonResult.OrderedAscending})
+            self.chords = snapshot?.value as! [Dictionary<String, String>]
+            self.chords.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
             self.chordTableView.reloadData()
         })
         
         let songsRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/song")
-        songsRoot.observeEventType(.Value, withBlock: { snapshot in
+        songsRoot.observe(.value, with: { snapshot in
             for (key,value) in snapshot.value as! NSDictionary {
                 self.songs.append(value)
                 self.songID.append(key as! String)
                 
             }
-            }, withCancelBlock: { error in
+            },withCancel: { error in
                 print(error.description)
         })
 
     }
     
+  
     
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell")
         if tableView.isEqual(toneTableView){
             cell.textLabel!.text = self.tones[indexPath.row]["name"] as String!
             //cell.textLabel!.textAlignment = NSTextAlignment.Center;
-            cell.textLabel!.textAlignment = .Center;
+            cell.backgroundColor = brownColor
+            cell.textLabel!.textAlignment = .center;
+            cell.textLabel?.textColor = UIColor.white
+            
         }
         if tableView.isEqual(chordTableView){
             cell.textLabel!.text = self.chords[indexPath.row]["name"] as String!
+            cell.backgroundColor = brownColor
+            cell.textLabel?.textColor = UIColor.white
         }
         if tableView.isEqual(songTableView){
             cell.textLabel!.text = self.neededSongs[indexPath.row]["songName"] as? String
             cell.detailTextLabel?.text = self.neededSongs[indexPath.row]["artist"] as? String
             cell.textLabel?.numberOfLines = 0
+            cell.backgroundColor = brownColor
+            cell.textLabel?.textColor = UIColor.white
+
             
         }
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("____________________________________", "/n", self.neededSongs.count)
         if tableView.isEqual(toneTableView){
             cellsCount = tones.count
@@ -116,7 +127,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cellsCount
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         if(tableView.isEqual(toneTableView)){
             self.chosenTone = self.tones[indexPath.row]["name"] as String!
         }
@@ -127,7 +138,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.chosenSong=self.neededSongs[indexPath.row]
             self.chosenSongId=self.neededSongsIDs[indexPath.row]
             self.chosenSongNumberOfTransitions = self.neededSongsNumberOfTransitions[indexPath.row]
-            performSegueWithIdentifier("viewSongsText", sender: indexPath)
+            performSegue(withIdentifier: "viewSongsText", sender: indexPath)
         }
         
         
@@ -137,62 +148,95 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             combinationAlertLabel.text = "You shold choose both parameters"
         }else{
             let dict:Dictionary<String,String> = ["tone": self.chosenTone!, "chord": self.chosenChord!]
-            chosenCombinations.append(dict)
+            chosenCombinations.append(dict as AnyObject)
+            self.labelChords.append(dict as AnyObject)
+            
             chosenCombinationsToScroll()
-            self.labelChords.append(dict)
-           
             
 
-            //////////////////////////////////////////////////////////////////////////
             print("ВЫЗЫВАЮ ФУНКЦИЮ combineToSrting!!!")
             combineToString()
-            
-            ////////////////////////////////////////////////////////////////////////
-            //self.neededSongs = []
+
             chosenChord = nil
             chosenTone = nil
             chosenCombinations = []
-            //self.songTableView.reloadData()
-
-            
         }
-        //print(chosenCombinations)
-        
     }
+    
+    
+    
     func chosenCombinationsToScroll(){
         combinationAlertLabel.text = ""
         for i in 0..<labelChords.count {
             let stringForButton:String
             let xForButton:CGFloat
             xForButton = CGFloat(5 + 40*i)
+            let xForDeleteButton = CGFloat(31 + 40*i)
             
-            let buttonForChord=UIButton(frame: CGRectMake(xForButton,0,30,30))
+            
+            
+            let deleteButton = UIButton(frame: CGRect(x: xForDeleteButton, y: 0, width: 10, height: 10))
+            deleteButton.layer.cornerRadius = 0.45 * deleteButton.bounds.size.width
+            deleteButton.clipsToBounds = true
+            
+            chosenCombinationsScrollView.addSubview(deleteButton);
+            deleteButton.setTitle("x", for: UIControlState());
+           
+            deleteButton.backgroundColor = pinkColor
+          
+            deleteButton.tag = i
+            deleteButton.addTarget(self, action: #selector(SearchViewController.deleteButtonClicked(_:)),
+                for: UIControlEvents.touchUpInside)
+        
+            
+            
+            let buttonForChord=UIButton(frame: CGRect(x: xForButton,y: 0,width: 30,height: 30))
+            buttonForChord.layer.cornerRadius = 0.45 * buttonForChord.bounds.size.width
+            
+           buttonForChord.clipsToBounds = true
+            buttonForChord.tag = i
+            
             chosenCombinationsScrollView.addSubview(buttonForChord)
             stringForButton = combinationAlertLabel.text! + (labelChords[i]["tone"]! as! String) + (labelChords[i]["chord"]! as! String) + "  ";
-            buttonForChord.backgroundColor = UIColor.grayColor()
-            buttonForChord.setTitle(stringForButton, forState: UIControlState.Normal)
-            
+            buttonForChord.backgroundColor = greenColor
+            buttonForChord.setTitle(stringForButton, for: UIControlState())
+            chosenCombinationsScrollView.bringSubview(toFront: deleteButton);
             
         }
     }
     
-    /*func swipeFromScrollView(){
-        let chordButtonSwipeRecognizer : UISwipeGestureRecognizer;
-        if (UISwipeGestureRecognizerDirection.Up == true){
+    func deleteButtonClicked(_ sender: UIButton)
+    {
+        let button = sender
+        let index = button.tag
+        
+        
+        
+        let alert = UIAlertController(title: "Alert", message: "Delete this chord?"
+            , preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        let destroyAction = UIAlertAction(title: "Delete", style: .destructive) { action in
             
         }
+        alert.addAction(destroyAction)
         
-    }*/
-    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.Up:
-                print("Swiped up")
-            default:
-                break
+        ///????????????????
+        //self.chosenCombinations.removeAtIndex(index)
+        //???????????????
+        self.chosenToneChord.remove(at: index)
+        
+        let subViews = self.chosenCombinationsScrollView.subviews
+        for subview in subViews {
+            if subview.tag == index  {
+                subview.removeFromSuperview()
+                chosenCombinationsScrollView.reloadInputViews()
             }
         }
+        combineToString()
     }
+    
+    
     
     func combineToString() {
         self.chosenToneChord = []
@@ -204,9 +248,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(tonechordName)
         
         let RootToneChord = Firebase(url: "https://achorda-ayana.firebaseio.com/toneChord")
-        RootToneChord.queryOrderedByChild("toneChord").observeSingleEventOfType(.Value,withBlock: {
+        RootToneChord?.queryOrdered(byChild: "toneChord").observeSingleEvent(of: .value,with: {
             snapshot in
-            self.toneChord=snapshot.value as! [AnyObject]
+            self.toneChord=snapshot?.value as! [AnyObject]
             for i in 0..<self.toneChord.count{
                 for j in 0..<self.tonechordName.count{
                     if (self.toneChord[i]["toneChord"] as! String==self.tonechordName[j] as String){
@@ -216,26 +260,23 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             self.songsChordCompare(self.chosenToneChord)
-        
-            
+
         })
         
     }
     
-    func songsChordCompare(chosenToneChord:[AnyObject]){
-        
-        print("0!!!!!!!!!!!")
+    func songsChordCompare(_ chosenToneChord:[AnyObject]){
         
         var same:Int = 0
         for i in 0..<self.songs.count{
             print(self.songs[i])
-            if (self.chosenToneChord.count==((self.songs[i]["chords"]!) as! [AnyObject]).count){
+            if (self.chosenToneChord.count==((self.songs[i]["chords"]!) as! [NSDictionary]).count){
                 print(self.songs[i])
                 for k in 0..<self.chosenToneChord.count{
-                    for j in 0..<((self.songs[i]["chords"]!) as! [AnyObject]).count{
+                    for j in 0..<((self.songs[i]["chords"]!) as! [NSDictionary]).count{
                         //если аккорд совпадает то same++ ежже
-                        if((self.songs[i]["chords"]!![j] as! Int) == (self.chosenToneChord[k]["numberOfChord"] as! Int) ){
-                            same++
+                        if(((self.songs[i]["chords"]!! as! NSDictionary)[j] as! Int) == (self.chosenToneChord[k]["numberOfChord"] as! Int) ){
+                            same += 1
                             print(same, " - same ")
                         }
                     }
@@ -265,7 +306,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     //функция отвечающая за сдвиг
-    func transposeIfNotSame(chosenToneChord:[AnyObject]){
+    func transposeIfNotSame(_ chosenToneChord:[AnyObject]){
         print("1!!!!!!!!!!!!")
         var arrayForChecking:[Int] = []
         
@@ -287,7 +328,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     //ежже сравниваю аrrayForChecking с выбранными
-    func comparingAndChecking(chosenToneChord:[AnyObject],  arrayForChecking:[Int]){
+    func comparingAndChecking(_ chosenToneChord:[AnyObject],  arrayForChecking:[Int]){
         print("2!!!!!!!!!!!")
         var same:Int = 0
         
@@ -295,8 +336,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if ( arrayForChecking.count == ((self.currentSong!["chords"]!) as! [AnyObject]).count){
             for k in 0..<arrayForChecking.count{
                 for j in 0..<((self.currentSong!["chords"]!) as! [AnyObject]).count{
-                    if((self.currentSong!["chords"]!![j] as! Int) == arrayForChecking[k] as Int){
-                        same++
+                    if(((self.currentSong!["chords"]!! as! NSDictionary)[j] as! Int) == arrayForChecking[k] as Int){
+                        same += 1
                     }
                 }
             }
@@ -314,7 +355,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             } else {
                 print("not enough same")
                 if (self.numberOfTransitions<11){
-                    self.numberOfTransitions++
+                    self.numberOfTransitions += 1
                     print("number of transitions",self.numberOfTransitions )
                     print("back to 1!!!!")
                     self.transposeIfNotSame(self.chosenToneChord)
@@ -322,17 +363,16 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
-        
         self.songTableView.reloadData()
-        //print(self.neededSongs)
+ 
         
     }
     
     
     
     
-    @IBAction func searchTapped(sender: AnyObject) {
-        self.performSegueWithIdentifier("searchSegue", sender: self)
+    @IBAction func searchTapped(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "searchSegue", sender: self)
         
     }
     
@@ -340,17 +380,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         callServer()
-        var swipeUp = UISwipeGestureRecognizer(target: chosenCombinationsScrollView,  action: "respondToSwipeGesture:")
-        swipeUp.direction = UISwipeGestureRecognizerDirection.Up
-        self.view.addGestureRecognizer(swipeUp)
-
-        
-        
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="viewSongsText"{
-            let vc = segue.destinationViewController as! SongsTextViewController
+            let vc = segue.destination as! SongsTextViewController
             vc.chosenSong = self.chosenSong
             vc.neededSongs = self.neededSongs
             vc.toneChord = self.toneChord
@@ -360,7 +394,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vc.chosenSongNumberOfTransitions = self.chosenSongNumberOfTransitions
         }
         if segue.identifier=="searchSegue"{
-            let vc = segue.destinationViewController as! ResultListViewController
+            let vc = segue.destination as! ResultListViewController
             vc.toneChord = self.toneChord
             vc.chosenToneChord = self.chosenToneChord
             vc.chosenCombinations = self.chosenCombinations
