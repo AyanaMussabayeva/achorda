@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Parse
-import Bolts
+//import Parse
+//import Bolts
 import Firebase
 
 
 class SongsTextViewController: UIViewController {
     
+     var ref = FIRDatabase.database().reference()
     
     @IBOutlet weak var songTextView: UITextView!
     @IBOutlet var songsNameLabel: UILabel!
@@ -41,8 +42,18 @@ class SongsTextViewController: UIViewController {
         print("NUMBER OF TRANSITIONS",self.chosenSongNumberOfTransitions)
         songsNameLabel.text = (((chosenSong as! NSDictionary)["artist"] as! String) + " - " + ((chosenSong as! NSDictionary)["songName"] as! String))
         //print(neededSongs)
-        
-        let songTextRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/songText/"	+ self.chosenSongId)
+ 
+        ref.child("songText/" + self.chosenSongId).observe(.value, with: { snapshot in
+            let chosenSongText = snapshot.value as! NSDictionary
+            self.text = chosenSongText["text"] as! String
+            self.songTextView.text=self.text
+            self.findSubstr()
+        }, withCancel: { error in
+            print(error.localizedDescription)
+        })
+    }
+ 
+      /*  let songTextRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/songText/"	+ self.chosenSongId)
         songTextRoot.observe(.value, with: { snapshot in
             
             let chosenSongText = snapshot.value as! NSDictionary
@@ -53,7 +64,7 @@ class SongsTextViewController: UIViewController {
                 print(error.description)
         })
         
-    }
+    }*/
 
     func findSubstr(){
   

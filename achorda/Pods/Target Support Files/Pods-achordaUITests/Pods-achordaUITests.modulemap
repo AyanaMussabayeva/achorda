@@ -1,0 +1,6 @@
+framework module Pods_achordaUITests {
+  umbrella header "Pods-achordaUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

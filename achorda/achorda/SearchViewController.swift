@@ -8,14 +8,16 @@
 //
 
 import UIKit
-
-import Bolts
+//import Bolts
 import Firebase
+import FirebaseAuth
 
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-
-
+    //var ref: FIRDatabaseReference!
+    var ref = FIRDatabase.database().reference()
+    
+    
     //@IBOutlet var combinationAlertLabel: UILabel!
     @IBOutlet var songTableView: UITableView!
     @IBOutlet var toneTableView: UITableView!
@@ -53,23 +55,57 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // собираем все тоуны и чорды
     func callServer(){
         
-        let myRootRef = Firebase(url:"https://achorda-ayana.firebaseio.com/tone")
-        myRootRef?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
+        /*
+         let myRootRef = Firebase(url:"https://achorda-ayana.firebaseio.com/tone")
+         
+         myRootRef?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
+         snapshot in
+         self.tones = snapshot?.value as! [Dictionary<String, String>]
+         self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
+         self.toneTableView.reloadData()
+         })*/
+        /*
+         let myRootRef2 = Firebase(url:"https://achorda-ayana.firebaseio.com/chord")
+         myRootRef2?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
+         snapshot in
+         self.chords = snapshot?.value as! [Dictionary<String, String>]
+         self.chords.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
+         self.chordTableView.reloadData()
+         })*/
+
+        
+        
+        ref.child("tone").queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
             snapshot in
-            self.tones = snapshot?.value as! [Dictionary<String, String>]
+            self.tones = snapshot.value as! [Dictionary<String, String>]
             self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
             self.toneTableView.reloadData()
+        }, withCancel: { error in
+            print(error.localizedDescription)
         })
         
-        let myRootRef2 = Firebase(url:"https://achorda-ayana.firebaseio.com/chord")
-        myRootRef2?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
-            snapshot in
-            self.chords = snapshot?.value as! [Dictionary<String, String>]
+        
+        
+        ref.child("chord").child("name").observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            self.chords = snapshot.value as! [Dictionary<String, String>]
             self.chords.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
             self.chordTableView.reloadData()
+        }, withCancel: { error in
+            print(error.localizedDescription)
         })
         
-        let songsRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/song")
+        ref.child("song").observe(.value, with: { snapshot in
+            for (key,value) in snapshot.value as! NSDictionary {
+                self.songs.append(value as AnyObject)
+                self.songID.append(key as! String)
+            }
+        },withCancel: { error in
+             print(error.localizedDescription)
+        })
+    
+        
+      /*  let songsRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/song")
         songsRoot.observe(.value, with: { snapshot in
             for (key,value) in snapshot.value as! NSDictionary {
                 self.songs.append(value)
@@ -78,7 +114,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             },withCancel: { error in
                 print(error.description)
-        })
+        })*/
 
     }
     
@@ -247,7 +283,33 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(chosenCombinations)
         print(tonechordName)
         
-        let RootToneChord = Firebase(url: "https://achorda-ayana.firebaseio.com/toneChord")
+        
+/* ref.child("tone").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+ self.tones = snapshot.value as! [Dictionary<String, String>]
+ self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
+ self.toneTableView.reloadData()
+ }, withCancel: { error in
+ print(error.localizedDescription)
+ })*/
+ 
+        ref.child("toneChord").queryOrdered(byChild: "toneChord").observeSingleEvent(of: .value,with: {
+            snapshot in
+            self.toneChord=snapshot.value as! [AnyObject]
+            for i in 0..<self.toneChord.count{
+                for j in 0..<self.tonechordName.count{
+                    if (self.toneChord[i]["toneChord"] as! String==self.tonechordName[j] as String){
+                        self.chosenToneChord.append(self.toneChord[i])
+                        print("____________________", self.toneChord[i])
+                    }
+                }
+            }
+            self.songsChordCompare(self.chosenToneChord)
+            
+        })
+        
+    }
+
+      /*  let RootToneChord = Firebase(url: "https://achorda-ayana.firebaseio.com/toneChord")
         RootToneChord?.queryOrdered(byChild: "toneChord").observeSingleEvent(of: .value,with: {
             snapshot in
             self.toneChord=snapshot?.value as! [AnyObject]
@@ -263,7 +325,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         })
         
-    }
+    }*/
     
     func songsChordCompare(_ chosenToneChord:[AnyObject]){
         

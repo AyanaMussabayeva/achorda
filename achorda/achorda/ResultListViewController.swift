@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Parse
-import Bolts
+//import Parse
+//import Bolts
 import Firebase
  
 class ResultListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180B655D1E2E1E31005A0255 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 180B655C1E2E1E31005A0255 /* GoogleService-Info.plist */; };
 		18C22CF01C6A087700C1AF38 /* Tone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C22CEF1C6A087700C1AF38 /* Tone.swift */; };
 		18C22CF21C6A089500C1AF38 /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C22CF11C6A089500C1AF38 /* Chord.swift */; };
 		18C22CF41C6A08A700C1AF38 /* ToneChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C22CF31C6A08A700C1AF38 /* ToneChord.swift */; };
@@ -30,7 +31,9 @@
 		3FD488E31C42BD5F00BE1EC5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD488E21C42BD5F00BE1EC5 /* libsqlite3.tbd */; };
 		3FEF88961C4A5BF50085EC54 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF88951C4A5BF50085EC54 /* StringExtension.swift */; };
 		3FF5379A1C49846300E2A8E9 /* SongsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF537991C49846300E2A8E9 /* SongsTextViewController.swift */; };
-		D35BF0E78E3406DABA6B47BF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372FCAB05165FB9806D252D0 /* Pods.framework */; };
+		A1B609560F784B3EDA2AE0A1 /* Pods_achorda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82DF1C759A5720CAF629145 /* Pods_achorda.framework */; };
+		B3088BB43FAB4BABDFA2A27E /* Pods_achordaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263A187F1F7A95F75FE26A77 /* Pods_achordaTests.framework */; };
+		EF2D2DE2026FC12E16E6DF22 /* Pods_achordaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B170CC173673F19A326CAD5 /* Pods_achordaUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +54,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180B655C1E2E1E31005A0255 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18C22CEF1C6A087700C1AF38 /* Tone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tone.swift; sourceTree = "<group>"; };
 		18C22CF11C6A089500C1AF38 /* Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		18C22CF31C6A08A700C1AF38 /* ToneChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneChord.swift; sourceTree = "<group>"; };
-		1AA0720709B4B63999340DD0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1B170CC173673F19A326CAD5 /* Pods_achordaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_achordaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		263A187F1F7A95F75FE26A77 /* Pods_achordaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_achordaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36BD31CDD74F7262FB1201AF /* Pods-achordaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achordaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-achordaTests/Pods-achordaTests.release.xcconfig"; sourceTree = "<group>"; };
 		372FCAB05165FB9806D252D0 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF54A91C41544E00D35397 /* achorda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = achorda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF54AC1C41544E00D35397 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +88,12 @@
 		3FD488E21C42BD5F00BE1EC5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		3FEF88951C4A5BF50085EC54 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3FF537991C49846300E2A8E9 /* SongsTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongsTextViewController.swift; sourceTree = "<group>"; };
-		FFBCC4304F4A293EE0512E9D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5958892F0257F9215147C653 /* Pods-achorda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achorda.release.xcconfig"; path = "Pods/Target Support Files/Pods-achorda/Pods-achorda.release.xcconfig"; sourceTree = "<group>"; };
+		79153F9144410615A2B69F66 /* Pods-achordaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achordaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-achordaTests/Pods-achordaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B60C2AD7422CF6D4EE092886 /* Pods-achorda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achorda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-achorda/Pods-achorda.debug.xcconfig"; sourceTree = "<group>"; };
+		B82DF1C759A5720CAF629145 /* Pods_achorda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_achorda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C45428F42B9A2A4F19BEBC78 /* Pods-achordaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achordaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-achordaUITests/Pods-achordaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E837540F640696ED9D5FA148 /* Pods-achordaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-achordaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-achordaUITests/Pods-achordaUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +111,7 @@
 				3FD488D51C42BCE000BE1EC5 /* CoreGraphics.framework in Frameworks */,
 				3FD488D31C42BCD700BE1EC5 /* CFNetwork.framework in Frameworks */,
 				3FD488D11C42BCD000BE1EC5 /* AudioToolbox.framework in Frameworks */,
-				D35BF0E78E3406DABA6B47BF /* Pods.framework in Frameworks */,
+				A1B609560F784B3EDA2AE0A1 /* Pods_achorda.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3088BB43FAB4BABDFA2A27E /* Pods_achordaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF2D2DE2026FC12E16E6DF22 /* Pods_achordaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,8 +141,8 @@
 				3FBF54C01C41544E00D35397 /* achordaTests */,
 				3FBF54CB1C41544E00D35397 /* achordaUITests */,
 				3FBF54AA1C41544E00D35397 /* Products */,
-				928E451F210299B134BA60FF /* Pods */,
 				8828A30D8D6E14CD26BA715D /* Frameworks */,
+				44E2263A08740BBCD8EBB4F1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +163,7 @@
 				3FBF54DC1C4154A200D35397 /* view */,
 				3FBF54DB1C41547D00D35397 /* model */,
 				3FBF54B31C41544E00D35397 /* Assets.xcassets */,
+				180B655C1E2E1E31005A0255 /* GoogleService-Info.plist */,
 				3FBF54AC1C41544E00D35397 /* AppDelegate.swift */,
 				3FBF54B51C41544E00D35397 /* LaunchScreen.storyboard */,
 				3FBF54B81C41544E00D35397 /* Info.plist */,
@@ -204,6 +218,19 @@
 			name = controller;
 			sourceTree = "<group>";
 		};
+		44E2263A08740BBCD8EBB4F1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B60C2AD7422CF6D4EE092886 /* Pods-achorda.debug.xcconfig */,
+				5958892F0257F9215147C653 /* Pods-achorda.release.xcconfig */,
+				79153F9144410615A2B69F66 /* Pods-achordaTests.debug.xcconfig */,
+				36BD31CDD74F7262FB1201AF /* Pods-achordaTests.release.xcconfig */,
+				C45428F42B9A2A4F19BEBC78 /* Pods-achordaUITests.debug.xcconfig */,
+				E837540F640696ED9D5FA148 /* Pods-achordaUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8828A30D8D6E14CD26BA715D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,17 +245,11 @@
 				3FD488D21C42BCD700BE1EC5 /* CFNetwork.framework */,
 				3FD488D01C42BCD000BE1EC5 /* AudioToolbox.framework */,
 				372FCAB05165FB9806D252D0 /* Pods.framework */,
+				B82DF1C759A5720CAF629145 /* Pods_achorda.framework */,
+				263A187F1F7A95F75FE26A77 /* Pods_achordaTests.framework */,
+				1B170CC173673F19A326CAD5 /* Pods_achordaUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		928E451F210299B134BA60FF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FFBCC4304F4A293EE0512E9D /* Pods.debug.xcconfig */,
-				1AA0720709B4B63999340DD0 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,12 +259,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FBF54D11C41544E00D35397 /* Build configuration list for PBXNativeTarget "achorda" */;
 			buildPhases = (
-				B55EE93D9E784D9E6F92DC8D /* Check Pods Manifest.lock */,
+				306DDE8A9793EF552E6F75F8 /* [CP] Check Pods Manifest.lock */,
 				3FBF54A51C41544E00D35397 /* Sources */,
 				3FBF54A61C41544E00D35397 /* Frameworks */,
 				3FBF54A71C41544E00D35397 /* Resources */,
-				CB3B3564CF7C1BAD9EAA8159 /* Embed Pods Frameworks */,
-				0CD59CC502CF1DD0B4DC3B6E /* Copy Pods Resources */,
+				A31A12F9C5C3453D2DFF27C7 /* [CP] Embed Pods Frameworks */,
+				3F9EB0A0219C48F61FC8FD05 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -258,9 +279,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FBF54D41C41544E00D35397 /* Build configuration list for PBXNativeTarget "achordaTests" */;
 			buildPhases = (
+				62A88AE30FCDDAFA3D0E05C6 /* [CP] Check Pods Manifest.lock */,
 				3FBF54B91C41544E00D35397 /* Sources */,
 				3FBF54BA1C41544E00D35397 /* Frameworks */,
 				3FBF54BB1C41544E00D35397 /* Resources */,
+				15A5C5D0E3B281817FCD3D5C /* [CP] Embed Pods Frameworks */,
+				8EB1DFA7C44293D4FEE2F1E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,9 +300,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FBF54D71C41544E00D35397 /* Build configuration list for PBXNativeTarget "achordaUITests" */;
 			buildPhases = (
+				D970020DB3CB8440C94D6CF7 /* [CP] Check Pods Manifest.lock */,
 				3FBF54C41C41544E00D35397 /* Sources */,
 				3FBF54C51C41544E00D35397 /* Frameworks */,
 				3FBF54C61C41544E00D35397 /* Resources */,
+				6E9DFD9F949C2A442726B811 /* [CP] Embed Pods Frameworks */,
+				623AF712C851881B3BA82B28 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -297,7 +324,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Ayana;
 				TargetAttributes = {
 					3FBF54A81C41544E00D35397 = {
@@ -342,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FBF54B71C41544E00D35397 /* LaunchScreen.storyboard in Resources */,
+				180B655D1E2E1E31005A0255 /* GoogleService-Info.plist in Resources */,
 				3FBF54B41C41544E00D35397 /* Assets.xcassets in Resources */,
 				3FBF54B21C41544E00D35397 /* Main.storyboard in Resources */,
 			);
@@ -364,49 +392,139 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0CD59CC502CF1DD0B4DC3B6E /* Copy Pods Resources */ = {
+		15A5C5D0E3B281817FCD3D5C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achordaTests/Pods-achordaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B55EE93D9E784D9E6F92DC8D /* Check Pods Manifest.lock */ = {
+		306DDE8A9793EF552E6F75F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		CB3B3564CF7C1BAD9EAA8159 /* Embed Pods Frameworks */ = {
+		3F9EB0A0219C48F61FC8FD05 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achorda/Pods-achorda-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		623AF712C851881B3BA82B28 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achordaUITests/Pods-achordaUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62A88AE30FCDDAFA3D0E05C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6E9DFD9F949C2A442726B811 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achordaUITests/Pods-achordaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8EB1DFA7C44293D4FEE2F1E3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achordaTests/Pods-achordaTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A31A12F9C5C3453D2DFF27C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-achorda/Pods-achorda-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D970020DB3CB8440C94D6CF7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -491,8 +609,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -536,8 +656,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -556,6 +678,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -563,8 +686,9 @@
 		};
 		3FBF54D21C41544E00D35397 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFBCC4304F4A293EE0512E9D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B60C2AD7422CF6D4EE092886 /* Pods-achorda.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = achorda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -576,8 +700,9 @@
 		};
 		3FBF54D31C41544E00D35397 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AA0720709B4B63999340DD0 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 5958892F0257F9215147C653 /* Pods-achorda.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = achorda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -589,6 +714,7 @@
 		};
 		3FBF54D51C41544E00D35397 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79153F9144410615A2B69F66 /* Pods-achordaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = achordaTests/Info.plist;
@@ -602,6 +728,7 @@
 		};
 		3FBF54D61C41544E00D35397 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36BD31CDD74F7262FB1201AF /* Pods-achordaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = achordaTests/Info.plist;
@@ -615,6 +742,7 @@
 		};
 		3FBF54D81C41544E00D35397 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C45428F42B9A2A4F19BEBC78 /* Pods-achordaUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = achordaUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -628,6 +756,7 @@
 		};
 		3FBF54D91C41544E00D35397 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E837540F640696ED9D5FA148 /* Pods-achordaUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = achordaUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
