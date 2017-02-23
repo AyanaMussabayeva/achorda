@@ -35,7 +35,7 @@ class ResultListViewController: UIViewController, UITableViewDelegate, UITableVi
     var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
     var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
     var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
-    
+    var orangeColor:UIColor = UIColor(red: 255/255, green: 150/255, blue: 0/255, alpha: 1.0) /* #ff9600 */
     
     
     //отображение в таблице
@@ -44,9 +44,9 @@ class ResultListViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.textLabel!.text = (self.neededSongs[indexPath.row] as! NSDictionary)["songName"] as? String
         cell.detailTextLabel?.text = (self.neededSongs[indexPath.row] as! NSDictionary)["artist"] as? String
         cell.textLabel?.numberOfLines = 0
-        cell.backgroundColor = brownColor
-        cell.textLabel?.textColor = UIColor.white
-        //cell.detailTextLabel?.textColor = greenColor
+        cell.backgroundColor = UIColor.white
+        cell.textLabel?.textColor = orangeColor
+        cell.detailTextLabel?.textColor = pinkColor
         
         return cell
     }

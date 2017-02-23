@@ -8,14 +8,13 @@
 //
 
 import UIKit
-//import Bolts
 import Firebase
 import FirebaseAuth
 
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    //var ref: FIRDatabaseReference!
-    var ref = FIRDatabase.database().reference()
+    var ref: FIRDatabaseReference!
+    //var ref = FIRDatabase.database().reference()
     
     
     //@IBOutlet var combinationAlertLabel: UILabel!
@@ -51,29 +50,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
     var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
     var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
+    var orangeColor:UIColor = UIColor(red: 255/255, green: 150/255, blue: 0/255, alpha: 1.0) /* #ff9600 */
     
     // собираем все тоуны и чорды
     func callServer(){
-        
-        /*
-         let myRootRef = Firebase(url:"https://achorda-ayana.firebaseio.com/tone")
-         
-         myRootRef?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
-         snapshot in
-         self.tones = snapshot?.value as! [Dictionary<String, String>]
-         self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
-         self.toneTableView.reloadData()
-         })*/
-        /*
-         let myRootRef2 = Firebase(url:"https://achorda-ayana.firebaseio.com/chord")
-         myRootRef2?.queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
-         snapshot in
-         self.chords = snapshot?.value as! [Dictionary<String, String>]
-         self.chords.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
-         self.chordTableView.reloadData()
-         })*/
-
-        
         
         ref.child("tone").queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
             snapshot in
@@ -84,9 +64,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print(error.localizedDescription)
         })
         
-        
-        
-        ref.child("chord").child("name").observeSingleEvent(of: .value, with: {
+        ref.child("chord").queryOrdered(byChild: "name").observeSingleEvent(of: .value, with: {
             (snapshot) in
             self.chords = snapshot.value as! [Dictionary<String, String>]
             self.chords.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
@@ -96,26 +74,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
         
         ref.child("song").observe(.value, with: { snapshot in
-            for (key,value) in snapshot.value as! NSDictionary {
-                self.songs.append(value as AnyObject)
+            for (key, value) in snapshot.value as! NSDictionary{
+                self.songs.append(value as Any as AnyObject)
                 self.songID.append(key as! String)
             }
         },withCancel: { error in
              print(error.localizedDescription)
         })
-    
-        
-      /*  let songsRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/song")
-        songsRoot.observe(.value, with: { snapshot in
-            for (key,value) in snapshot.value as! NSDictionary {
-                self.songs.append(value)
-                self.songID.append(key as! String)
-                
-            }
-            },withCancel: { error in
-                print(error.description)
-        })*/
-
     }
     
   
@@ -124,30 +89,28 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell")
         if tableView.isEqual(toneTableView){
             cell.textLabel!.text = self.tones[indexPath.row]["name"] as String!
-            //cell.textLabel!.textAlignment = NSTextAlignment.Center;
-            cell.backgroundColor = brownColor
+            cell.backgroundColor = UIColor.white
             cell.textLabel!.textAlignment = .center;
-            cell.textLabel?.textColor = UIColor.white
+            cell.textLabel?.textColor = orangeColor;
             
         }
         if tableView.isEqual(chordTableView){
             cell.textLabel!.text = self.chords[indexPath.row]["name"] as String!
-            cell.backgroundColor = brownColor
-            cell.textLabel?.textColor = UIColor.white
+            cell.backgroundColor = UIColor.white
+            cell.textLabel?.textColor = orangeColor;
         }
         if tableView.isEqual(songTableView){
             cell.textLabel!.text = self.neededSongs[indexPath.row]["songName"] as? String
             cell.detailTextLabel?.text = self.neededSongs[indexPath.row]["artist"] as? String
             cell.textLabel?.numberOfLines = 0
-            cell.backgroundColor = brownColor
-            cell.textLabel?.textColor = UIColor.white
+            cell.backgroundColor = UIColor.white
+            cell.textLabel?.textColor = orangeColor
 
             
         }
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("____________________________________", "/n", self.neededSongs.count)
         if tableView.isEqual(toneTableView){
             cellsCount = tones.count
             print(tones.count)
@@ -223,8 +186,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             deleteButton.tag = i
             deleteButton.addTarget(self, action: #selector(SearchViewController.deleteButtonClicked(_:)),
                 for: UIControlEvents.touchUpInside)
-        
-            
             
             let buttonForChord=UIButton(frame: CGRect(x: xForButton,y: 0,width: 30,height: 30))
             buttonForChord.layer.cornerRadius = 0.45 * buttonForChord.bounds.size.width
@@ -234,7 +195,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             chosenCombinationsScrollView.addSubview(buttonForChord)
             stringForButton = combinationAlertLabel.text! + (labelChords[i]["tone"]! as! String) + (labelChords[i]["chord"]! as! String) + "  ";
-            buttonForChord.backgroundColor = greenColor
+            buttonForChord.backgroundColor = orangeColor
             buttonForChord.setTitle(stringForButton, for: UIControlState())
             chosenCombinationsScrollView.bringSubview(toFront: deleteButton);
             
@@ -247,7 +208,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let index = button.tag
         
         
-        
         let alert = UIAlertController(title: "Alert", message: "Delete this chord?"
             , preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.default, handler: nil))
@@ -257,10 +217,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         alert.addAction(destroyAction)
         
-        ///????????????????
-        //self.chosenCombinations.removeAtIndex(index)
-        //???????????????
         self.chosenToneChord.remove(at: index)
+        self.tonechordName.remove(at: index)
+        //self.chosenCombinations.remove(at: index)
+        //self.chosenChord = nil
+        //self.chosenTone = nil
+        self.neededSongs.removeAll()
+        self.songsChordCompare(self.chosenToneChord)
+        
         
         let subViews = self.chosenCombinationsScrollView.subviews
         for subview in subViews {
@@ -269,7 +233,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 chosenCombinationsScrollView.reloadInputViews()
             }
         }
-        combineToString()
+        //combineToString()
+        
+        
     }
     
     
@@ -283,15 +249,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(chosenCombinations)
         print(tonechordName)
         
-        
-/* ref.child("tone").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
- self.tones = snapshot.value as! [Dictionary<String, String>]
- self.tones.sort(by: { $0["name"]!.localizedCaseInsensitiveCompare($1["name"]!) == ComparisonResult.orderedAscending})
- self.toneTableView.reloadData()
- }, withCancel: { error in
- print(error.localizedDescription)
- })*/
- 
         ref.child("toneChord").queryOrdered(byChild: "toneChord").observeSingleEvent(of: .value,with: {
             snapshot in
             self.toneChord=snapshot.value as! [AnyObject]
@@ -309,23 +266,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
 
-      /*  let RootToneChord = Firebase(url: "https://achorda-ayana.firebaseio.com/toneChord")
-        RootToneChord?.queryOrdered(byChild: "toneChord").observeSingleEvent(of: .value,with: {
-            snapshot in
-            self.toneChord=snapshot?.value as! [AnyObject]
-            for i in 0..<self.toneChord.count{
-                for j in 0..<self.tonechordName.count{
-                    if (self.toneChord[i]["toneChord"] as! String==self.tonechordName[j] as String){
-                        self.chosenToneChord.append(self.toneChord[i])
-                        print("____________________", self.toneChord[i])
-                    }
-                }
-            }
-            self.songsChordCompare(self.chosenToneChord)
-
-        })
-        
-    }*/
     
     func songsChordCompare(_ chosenToneChord:[AnyObject]){
         
@@ -337,7 +277,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 for k in 0..<self.chosenToneChord.count{
                     for j in 0..<((self.songs[i]["chords"]!) as! [NSDictionary]).count{
                         //если аккорд совпадает то same++ ежже
-                        if(((self.songs[i]["chords"]!! as! NSDictionary)[j] as! Int) == (self.chosenToneChord[k]["numberOfChord"] as! Int) ){
+                        if((((self.songs[i]["chords"]!) as! Array)[j]) == (self.chosenToneChord[k]["numberOfChord"] as! Int)) {
                             same += 1
                             print(same, " - same ")
                         }
@@ -383,7 +323,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         for i in 0..<arrayForChecking.count{
             if(arrayForChecking[i] > 120){
-                arrayForChecking[i] = arrayForChecking[i]-120 //(arrayForChecking[i]+10*numberOfTransitions)%120-10
+               // arrayForChecking[i] = arrayForChecking[i]-120 //(arrayForChecking[i]+10*numberOfTransitions)%120-10
+                 arrayForChecking[i] = (arrayForChecking[i]+10*numberOfTransitions)%120-10
             }
         }
         comparingAndChecking (self.chosenToneChord, arrayForChecking: arrayForChecking)
@@ -398,7 +339,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if ( arrayForChecking.count == ((self.currentSong!["chords"]!) as! [AnyObject]).count){
             for k in 0..<arrayForChecking.count{
                 for j in 0..<((self.currentSong!["chords"]!) as! [AnyObject]).count{
-                    if(((self.currentSong!["chords"]!! as! NSDictionary)[j] as! Int) == arrayForChecking[k] as Int){
+                    if(((self.currentSong!["chords"]!! as! Array)[j] ) == arrayForChecking[k] as Int){
                         same += 1
                     }
                 }
@@ -426,7 +367,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         self.songTableView.reloadData()
- 
         
     }
     
@@ -440,7 +380,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ref  = FIRDatabase.database().reference()
         callServer()
     }
     

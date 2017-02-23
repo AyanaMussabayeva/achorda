@@ -35,36 +35,24 @@ class SongsTextViewController: UIViewController {
     var greenColor:UIColor = UIColor(hue: 168/360, saturation: 49/100, brightness: 80/100, alpha: 1.0) /* #68ccb8 */
     var brownColor:UIColor = UIColor(red: 147/255, green: 131/255, blue: 132/255, alpha: 1.0)
     var pinkColor:UIColor = UIColor(hue: 339/360, saturation: 58/100, brightness: 93/100, alpha: 1.0) /* #ed6393 */
+    var orangeColor:UIColor = UIColor(red: 255/255, green: 150/255, blue: 0/255, alpha: 1.0) /* #ff9600 */
     
-    //((((self.chosenSong! as! NSDictionary)["chords"] as! NSArray )[i] as! Int)+120)
     func showText(){
         //print(chosenSong)
         print("NUMBER OF TRANSITIONS",self.chosenSongNumberOfTransitions)
         songsNameLabel.text = (((chosenSong as! NSDictionary)["artist"] as! String) + " - " + ((chosenSong as! NSDictionary)["songName"] as! String))
-        //print(neededSongs)
  
         ref.child("songText/" + self.chosenSongId).observe(.value, with: { snapshot in
             let chosenSongText = snapshot.value as! NSDictionary
             self.text = chosenSongText["text"] as! String
             self.songTextView.text=self.text
+            self.songTextView.textColor = self.orangeColor
             self.findSubstr()
         }, withCancel: { error in
             print(error.localizedDescription)
         })
     }
  
-      /*  let songTextRoot = Firebase(url:"https://achorda-ayana.firebaseio.com/songText/"	+ self.chosenSongId)
-        songTextRoot.observe(.value, with: { snapshot in
-            
-            let chosenSongText = snapshot.value as! NSDictionary
-            self.text = chosenSongText["text"] as! String
-            self.songTextView.text=self.text
-            self.findSubstr()
-            }, withCancel: { error in
-                print(error.description)
-        })
-        
-    }*/
 
     func findSubstr(){
   
@@ -84,8 +72,8 @@ class SongsTextViewController: UIViewController {
                 
                 let rect = songTextView.firstRect(for: tRange!)
                 let view:UILabel = UILabel(frame: rect)
-                view.backgroundColor = brownColor
-                view.textColor = greenColor
+                view.backgroundColor = UIColor.white
+                view.textColor = orangeColor
                 
                 for dict in InitialVsNewDict{
                     if(chosenSongsInitialChords[i]==dict.0){
